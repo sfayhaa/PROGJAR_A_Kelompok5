@@ -4,12 +4,9 @@ from bs4 import BeautifulSoup
 
 link = 'https://go.dev/doc/'
 h_link = 'https://go.dev'
-html = requests.get(link).text
-soup = BeautifulSoup(html, 'html.parser')
 
 def getGoBlog(num):
-    
-    track_title = num.text.strip().replace(': ', '-')
+    track_title = num.text.strip().replace(': ', ' -> ')
     download_url = '{}{}'.format(h_link, num['href'])
     file_name = '{}.html'.format(track_title)
 
@@ -20,12 +17,14 @@ def getGoBlog(num):
     print('Parsing...\n{}: {}'.format(track_title, download_url))
 
 if __name__ == '__main__':
-    index = 'a'
-    input_link = soup.find_all(index, string=re.compile(r'^((?!\().)*$'))
+    html = requests.get(link).text
+    soup = BeautifulSoup(html, 'html.parser')
+    in_link = soup.find_all('a')
+    result = in_link[14:23]
     count = 1;
-    print("List of <{}>\n".format(index))
-    for item in input_link[12:21]:
-        print(count, item)
+    print("List of Docs\n")
+    for item in result:
+        print("{}. {}".format(count, item))
         count += 1
     
     print("\nParse which number?")
@@ -34,5 +33,5 @@ if __name__ == '__main__':
     if num>=count :
         print("Index Out of Range")
     else:
-        getGoBlog(input_link[num+11])
+        getGoBlog(result[num-1])
         
