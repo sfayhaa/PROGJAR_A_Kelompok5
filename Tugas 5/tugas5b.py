@@ -10,13 +10,13 @@ def getGoPackage(query, num):
         print("Requests : https://pkg.go.dev/search?q=llrb\n")
         if int(num) < 25:
             r = requests.get('https://pkg.go.dev/search?q=llrb')
-        r= requests.get('https://pkg.go.dev/search?limit=100&m=package&q=llrb#more-results')
+        else: r= requests.get('https://pkg.go.dev/search?limit=100&m=package&q=llrb#more-results')
      
     if query=="sort":
         print("Requests : https://pkg.go.dev/search?q=sort\n")
         if int(num) < 25:
             r = requests.get('https://pkg.go.dev/search?q=sort')
-        r = requests.get('https://pkg.go.dev/search?limit=100&m=package&q=sort#more-results')
+        else: r = requests.get('https://pkg.go.dev/search?limit=100&m=package&q=sort#more-results')
         
     soup = BeautifulSoup(r.content, 'html.parser')
     link = []
