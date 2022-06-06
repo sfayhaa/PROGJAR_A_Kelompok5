@@ -17,12 +17,13 @@ def recvall(sock, length):
     return data
 
 def worker(address, i, data):
+    # membuat socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.connect(address)
+    sock.connect(address) # connect socket
 
     message = ""
-    for ii in data:
-        ii = ii.strip()
+    for ii in data: # untuk setiap 'ii' dalam data
+        ii = ii.strip() # di strip dulu karena di paling kanan masih ada newline 
         len_msg = b"%03d" % (len(ii),) 
         msg = len_msg + bytes(ii, encoding="ascii")
         sock.sendall(msg)
@@ -33,20 +34,25 @@ def worker(address, i, data):
     sock.close()
 
 if __name__ == '__main__':
+     # membaca input.txt. dan disimpan menjadi list dalam data
     f = open("input.txt")
     data = f.readlines()
     f.close()
 
     address = (HOST, PORT)
-    jobs = []
+    jobs = [] #list job
+
+
     for i in range(NUMJOBS):
         p = multiprocessing.Process(target=worker, args=(address, i, data))
-        jobs.append(p)
+        
+        jobs.append(p) # hasil p di append ke dalam list jobs
     print("JOBS:", len(jobs))
 
     for p in jobs:
         p.start()
 
+# dilakukan join. thread utama akan menunggu sampai semua join.
     for p in jobs:
         p.join()
 
