@@ -28,3 +28,6 @@ Tugas:
 a. membuat server multi thread (lihat kode ch07/srv_threaded.py)...
 
 b. membuat server asyncio (lihat kode ch07/srv_asyncio[12].py
+
+
+Adapun link youtube demo tugas2 adalah [video demo tugas2](https://youtu.be/6dl6Fu5Q1Vk) 
